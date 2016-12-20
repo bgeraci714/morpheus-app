@@ -5,6 +5,30 @@ exports.setMatrixA = (matrixA) => {
   };
 };
 
+exports.addNewRow = () => {
+  return {
+    type: 'ADD_NEW_ROW'
+  };
+};
+
+exports.removeRow = () => {
+  return {
+    type: 'REMOVE_ROW'
+  };
+};
+
+exports.addNewCol = () => {
+  return {
+    type: 'ADD_NEW_COL'
+  };
+};
+
+exports.removeCol = () => {
+  return {
+    type: 'REMOVE_COL'
+  };
+};
+
 // pass in matrix A to then be used to calculate matrixU
 exports.calcMatrixU = () => {
   return {

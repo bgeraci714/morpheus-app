@@ -2,11 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { testSetMatrixA, testIncrementRow, testDecrementRow, testIncrementCol,
-         testDecrementCol, testCalcMatrixU, testCalcMatrixR, testSetEntry } from './redux_tests';
+         testDecrementCol, testCalcMatrixU, testCalcMatrixR, testSetEntry,
+         testAddNewRow, testRemoveRow, testAddNewCol, testRemoveCol } from './tests/redux_tests';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
+});
+
+it('removes the last col in matrixA', () => {
+  testRemoveCol();
+});
+
+it('adds a new col to matrixA and fills it with zeros', () => {
+  testAddNewCol();
+});
+
+it('removes the last row in matrixA', () => {
+  testRemoveRow();
+});
+
+it('adds a new row to matrixA and fills it with zeros', () => {
+  testAddNewRow();
 });
 
 it('sets a specific entry in the state\'s matrixA', () => {

@@ -6,11 +6,97 @@ const createSpy = expect.createSpy;
 const spyOn = expect.spyOn;
 const isSpy = expect.isSpy;
 
-import matrices from './reducers/matrices';
-import rows from './reducers/rows';
-import cols from './reducers/cols';
-import { setMatrixA, calcMatrixU, calcMatrixR, setEntry } from './actions/matrices';
-import { incrementRows, decrementRows, incrementCols, decrementCols } from './actions/rows_cols';
+import matrices from '../reducers/matrices';
+import rows from '../reducers/rows';
+import cols from '../reducers/cols';
+import { setMatrixA, calcMatrixU, calcMatrixR, setEntry, addNewRow, removeRow, addNewCol, removeCol } from '../actions/matrices';
+import { incrementRows, decrementRows, incrementCols, decrementCols } from '../actions/rows_cols';
+
+exports.testAddNewCol = () => {
+  const stateBefore = {
+    matrixA: [[1, 1],
+              [0, 0]]
+  };
+  const action = addNewCol();
+
+  deepFreeze(stateBefore);
+  deepFreeze(action);
+
+  const stateAfter = {
+    matrixA: [[1, 1, 0],
+              [0, 0, 0]]
+  };
+
+  expect (
+    matrices(stateBefore, action)
+  ).toEqual(stateAfter);
+}
+
+exports.testRemoveCol = () => {
+  const stateBefore = {
+    matrixA: [[1, 1],
+              [0, 0]]
+
+  };
+  const action = removeCol();
+
+  deepFreeze(stateBefore);
+  deepFreeze(action);
+
+  const stateAfter = {
+    matrixA: [[1],
+              [0]]
+  };
+
+  expect (
+    matrices(stateBefore, action)
+  ).toEqual(stateAfter);
+}
+
+
+exports.testRemoveRow = () => {
+  const stateBefore = {
+    matrixA: [[1, 1],
+              [0, 0],
+              [0, 0]]
+
+  };
+  const action = removeRow();
+
+  deepFreeze(stateBefore);
+  deepFreeze(action);
+
+  const stateAfter = {
+    matrixA: [[1, 1],
+              [0, 0]]
+  };
+
+  expect (
+    matrices(stateBefore, action)
+  ).toEqual(stateAfter);
+}
+
+exports.testAddNewRow = () => {
+  const stateBefore = {
+    matrixA: [[1, 1],
+              [0, 0]]
+  };
+  const action = addNewRow();
+
+  deepFreeze(stateBefore);
+  deepFreeze(action);
+
+  const stateAfter = {
+    matrixA: [[1, 1],
+              [0, 0],
+              [0, 0]]
+  };
+
+  expect (
+    matrices(stateBefore, action)
+  ).toEqual(stateAfter);
+}
+
 
 exports.testSetEntry = () => {
   const stateBefore = {

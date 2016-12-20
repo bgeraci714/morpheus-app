@@ -1,35 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
+//import { connect } from 'react-redux';
 import { FormControl } from 'react-bootstrap';
 
-class Entry extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      row: this.props.row,
-      col: this.props.col,
-      value: ""
-    };
+const Entry = ({onChange, row, col, value}) => (
+  <FormControl
+    type="number"
+    value={value}
+    onChange={(e) => onChange(row, col, Number(e.target.value))}
+  />
+)
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(e) {
-    const newValue = e.target.value;
-    console.log(this.state.row + "," + this.state.col + ": " + newValue);
-    this.setState({value: newValue});
-  }
-
-  render () {
-    return (
-          <FormControl
-            type="number"
-            value={this.state.value}
-            onChange={this.onChange}
-          />
-    );
-  }
+Entry.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 }
 
-
-export default Entry;
+export default Entry

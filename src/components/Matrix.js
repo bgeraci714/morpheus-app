@@ -1,44 +1,33 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
 
 import { FormGroup, Col, Form } from 'react-bootstrap';
 import Entry from './Entry';
 
-import { setMatrixA, calcMatrixU, calcMatrixR } from '../actions/matrices';
-
-class Matrix extends Component {
-
-  render() {
-    console.log("matrix was rendered");
-    let arr = [];
-    for (let i = 0; i < this.props.rows; i++) {
-      arr[i] = [];
-      for (let j = 0; j < this.props.cols; j++) {
-        arr[i][j] = "";
-      }
-    }
-
-    return (
-      <div>
-        <Form horizontal={true} >
-        {arr.map((rows, i) =>
-          <div key={i}>
-          <FormGroup>
-            {rows.map((cols, j) =>
-              <Col key={`${i},${j}`} sm={1}>
-                <Entry row={i} col={j} value={0} />
-              </Col>
-            )}
-          </FormGroup>
-          <br/>
-          </div>
+const Matrix = ({ matrixA, rows, cols, onEntryChange }) => (
+  <div>
+    <Form horizontal={true} >
+    {matrixA.map((rows, i) =>
+      <div key={i}>
+      <FormGroup>
+        {rows.map((cols, j) =>
+          <Col key={`${i},${j}`} sm={1}>
+            <Entry row={i} col={j} value={cols} onChange={onEntryChange} />
+          </Col>
         )}
-        </Form>
+      </FormGroup>
+      <br/>
       </div>
-    );
-  }
-}
+    )}
+    </Form>
+  </div>
+)
 
+Matrix.propTypes = {
+  matrixA: PropTypes.arrayOf(PropTypes.array).isRequired,
+  rows: PropTypes.number.isRequired,
+  cols: PropTypes.number.isRequired,
+  onEntryChange: PropTypes.func.isRequired
+}
 
 
 export default Matrix;
