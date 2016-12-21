@@ -5,6 +5,7 @@ import Entry from './Entry';
 
 const Matrix = ({ matrixA, rows, cols, onEntryChange }) => (
   <div>
+    <br />
     <Form horizontal={true} >
     {matrixA.map((rows, i) =>
       <div key={i}>

@@ -4,6 +4,7 @@ import MatrixA from '../containers/MatrixA';
 import RowCounter from '../containers/RowCounter';
 import ColCounter from '../containers/ColCounter';
 import CalculateUR from '../containers/CalculateUR';
+import DisplayMatrices from '../containers/DisplayMatrices'
 import logo from '../logo.svg';
 import '../App.css';
 
@@ -21,6 +22,8 @@ const App = () => (
         <ColCounter />
         <MatrixA />
         <CalculateUR />
+
+        <DisplayMatrices />
 
       </div>
     </div>

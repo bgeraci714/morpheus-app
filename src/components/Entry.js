@@ -7,6 +7,7 @@ const Entry = ({onChange, row, col, value}) => (
     type="number"
     value={value}
     onChange={(e) => onChange(row, col, Number(e.target.value))}
+    onFocus={(e)=> {e.target.select()}}
   />
 )
 

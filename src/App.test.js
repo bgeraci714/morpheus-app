@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App';
 import { testSetMatrixA, testIncrementRow, testDecrementRow, testIncrementCol,
          testDecrementCol, testCalcMatrixU, testCalcMatrixR, testSetEntry,
-         testAddNewRow, testRemoveRow, testAddNewCol, testRemoveCol } from './tests/redux_tests';
+         testAddNewRow, testRemoveRow, testAddNewCol, testRemoveCol, testFetchData } from './tests/redux_tests';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
 });
+
+it('signals that data has been fetched from the user', () => {
+  testFetchData();
+})
 
 it('removes the last col in matrixA', () => {
   testRemoveCol();
