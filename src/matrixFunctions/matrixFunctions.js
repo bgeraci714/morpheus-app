@@ -6,42 +6,139 @@ class RowSwap {
   }
 }
 
-// calls:
-// reduceToUpper => divdeByPivot => rref
-/*
-let matrixA = [[1, -1, 0, 2],
-               [-1, 2, -1, 2],
-               [0, 2, -1, 2],
-               [0, 2, -1, 2]];
-*/
-
-
-/*
-console.log("\nMatrix A:" );
-printMatrix(matrixA);
-
-let matrixU = reduceToUpper(matrixA);
-matrixU = divideByPivot(matrixU);
-let matrixR = rref(matrixU);
-console.log("\nReduced Row Echelon Form:" );
-printMatrix(matrixR);
-*/
 /////////////////////////////
 ///// All the Functions /////
 /////////////////////////////
 
-// Takes a reduced matrix and puts it into reduced row echelon form
-exports.rref = (matrix) => {
-  // assumes reduction currently
-  for (let i = matrix.length - 1;i > 0; i--) {
+// transposes a matrix
+function transpose(matrix) {
+  let matrixTranspose = [];
+
+  matrix[0].forEach(() => {
+    matrixTranspose.push([]);
+  });
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      matrixTranspose[j].push(matrix[i][j]);
+    }
+  }
+
+  return matrixTranspose;
+}
+
+// returns each special solution as an individual array of values
+function getNullspace(matrixA) {
+  let matrix = matrixA.slice();
+  let matrixR = rref(matrix);
+
+  let pivotCols = getColsOfPivots(matrixR);
+  let cols = matrixR[0].length;
+  let freeCols = [];
+  for (let i = 0; i < cols; i++) {
+    if (pivotCols.indexOf(i) === -1)
+      freeCols.push(i);
+  }
+  let nullspace = [];
+  // creates the special solutions for the nullspace
+  for (let i = 0; i < freeCols.length; i++) {
+    let curSoln = [];
+    for (let j = 0; j < cols; j++) {
+      // if j is a pivot column
+      if (pivotCols.indexOf(j) !== -1) {
+        // get the value from MatrixR using the correct row and column
+        // the below code pivotCols.indexOf(j) leverages the fact that pivot
+        // columns are pushed to the end of the list as their added (which means
+        // if pivot cols === [j, x], we know j is the first pivot and is found
+        // in the zeroth (first) row of our matrix;
+        let curValue = matrixR[pivotCols.indexOf(j)][freeCols[i]];
+        curSoln.push(curValue === 0 ? 0 : -1 * curValue);
+      }
+      // otherwise, add 1 if we've got our free variable of interest, otherwise zero.
+      else
+        curSoln.push(freeCols[i] === j ? 1 : 0);
+    }
+    nullspace.push(curSoln);
+  }
+
+  return nullspace;
+}
+
+// returns the row space of matrix A
+function getRowSpace(matrixA) {
+  let matrix = matrixA.slice();
+  let matrixR = rref(matrix);
+
+  let pivotCols = getColsOfPivots(matrixR);
+  let rank = pivotCols.length - 1;
+
+  let matrixPivotRows = matrixR.filter((row, i) => {
+    return i <= rank;
+  });
+
+  return matrixPivotRows;
+}
+
+// returns the pivot columns (the bases for the column space)
+function getColumnSpace(matrixA) {
+  let matrix = matrixA.slice();
+  let matrixR = rref(matrix);
+  let pivotCols = getColsOfPivots(matrixR);
+
+  let matrixPivotCols = matrix.map((row, i) => {
+    return row.filter((colEntry, j) => {
+      return pivotCols.indexOf(j) !== -1;
+    });
+  });
+
+  let columnSpace = [];
+  matrixPivotCols[0].forEach(() => {
+    columnSpace.push([]);
+  });
+
+  for (let i = 0; i < matrixPivotCols.length; i++) {
+    for (let j = 0; j < matrixPivotCols[0].length; j++) {
+      columnSpace[j].push(matrixPivotCols[i][j]);
+    }
+  }
+
+  return columnSpace;
+}
+
+function getColsOfPivots (matrixR) {
+
+  let pivotCols = [];
+  let numRows = matrixR.length;
+  let numCols = matrixR[0].length;
+  for (let i = 0; i < numRows; i++) {
+    for (let j = i; j < numCols; j++) {
+      if (matrixR[i][j] === 1) {
+        pivotCols.push(j);
+        break;
+      }
+    }
+  }
+
+  return pivotCols;
+}
+
+// Takes any matrix A and transforms it into reduced row echelon form
+function rref (matrixA) {
+
+  let m = matrixA.slice();
+  m = reduceToUpper(m);
+  let matrix = divideByPivot(m);
+
+  for (let i = matrix.length - 1; i > 0; i--) {
     // finds pivots (which should be 1's because of reduction)
+
     let indexOfPivot = matrix[i].indexOf(1);
     let curPivot = matrix[i][indexOfPivot];
     let pivotRow = matrix[i];
 
     // if the above doesnt work, try again but this time move up a row
     // this accounts for rows of zeroes
-    while(indexOfPivot === -1) {
+    while(indexOfPivot === -1 && i > 0) {
       i--;
       indexOfPivot = matrix[i].indexOf(1);
       curPivot = matrix[i][indexOfPivot];
@@ -84,7 +181,7 @@ function returnRowSwapObj(matrix) {
     if (matrix[curPivotRow][i] === 0) {
       // check elements below for a nonzero number
       for (let j = curPivotRow; j < numRows; j++)
-        // if there is one, return a RowSwap object wit hthe two rows
+        // if there is one, return a RowSwap object with the two rows
         if (matrix[j][i] !== 0)
           return new RowSwap(true, curPivotRow, j);
     }
@@ -95,12 +192,12 @@ function returnRowSwapObj(matrix) {
   return new RowSwap(false, 0, 0);
 }
 
-exports.divideByPivot = (matrix) => {
+function divideByPivot (matrix) {
   let reducedMatrix = matrix.map((row, i) => {
     return row.map((element) => {
       if (element === 0)
         return element;
-      while (row[i] === 0 || i >= row.length) {
+      while (row[i] === 0) {
         i++;
       }
       return element / row[i];
@@ -110,13 +207,15 @@ exports.divideByPivot = (matrix) => {
 }
 
 // reduces matrices to upper triangular phone
-exports.reduceToUpper = (matrixA) => {
+function reduceToUpper (matrixA) {
   let matrix = matrixA.slice();
   let curPivotRow = 0;
+
   for (let i = 0;i < matrix.length; i++) {
     // keeps pivots on the diagonal
     let curPivot = matrix[curPivotRow][i];
     let pivotRow = matrix[curPivotRow];
+
     while (curPivot === 0 && i < matrix.length) {
       //console.log("GAH THERE'S A ZERO IN MAH PIVOT SPOT");
       let rowSwapObj = returnRowSwapObj(matrix);
@@ -147,14 +246,22 @@ exports.reduceToUpper = (matrixA) => {
 }
 
 function rowSubtract (rowA, rowB, scalar) {
+  if (isNaN(scalar))
+    scalar = 0;
+
   rowA = rowA.map((element) => {
     return element * scalar;
   });
   rowB = rowB.map((element, index) => {
     return element - rowA[index];
   });
+
   return rowB;
 };
+
+export {rref, divideByPivot, reduceToUpper,
+        transpose, getNullspace, getRowSpace,
+        getColumnSpace };
 
 /*
 function printMatrix (matrix) {
