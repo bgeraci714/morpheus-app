@@ -28,6 +28,15 @@ const leftNullspaceTitle = (
   <h3>Left Nullspace Basis </h3>
 );
 
+const matrixUPanel = "primary";
+const matrixRPanel = "primary";
+const colSpacePanel = "primary";
+const rowSpacePanel = "primary";
+const nullspacePanel = "primary";
+const leftNullspacePanel = "primary";
+
+
+
 const formatNum = (number) => {
   if (number % 1 !== 0)
     number = number.toFixed(2);
@@ -39,7 +48,7 @@ const MatrixDisplay = ({ matrixU, matrixR, hasData, colSpace, rowSpace, nullspac
     return (
       <div>
         <br/>
-        <Panel header={matrixUTitle}>
+        <Panel bsStyle={matrixUPanel} header={matrixUTitle}>
           <table className="matrix">
             <tbody>
               {matrixU.map((rows, i) =>
@@ -54,7 +63,7 @@ const MatrixDisplay = ({ matrixU, matrixR, hasData, colSpace, rowSpace, nullspac
             </tbody>
             </table>
         </Panel>
-        <Panel header={matrixRTitle}>
+        <Panel bsStyle={matrixRPanel} header={matrixRTitle}>
           <table className="matrix">
             <tbody>
               {matrixR.map((rows, i) =>
@@ -70,7 +79,7 @@ const MatrixDisplay = ({ matrixU, matrixR, hasData, colSpace, rowSpace, nullspac
             </table>
         </Panel>
 
-        <Panel header={colSpaceTitle}>
+        <Panel bsStyle={colSpacePanel} header={colSpaceTitle}>
           <div className={"matrixContainer"}>
             {colSpace.map((vectors, i) =>
 
@@ -89,7 +98,7 @@ const MatrixDisplay = ({ matrixU, matrixR, hasData, colSpace, rowSpace, nullspac
             )}
           </div>
         </Panel>
-        <Panel header={rowSpaceTitle}>
+        <Panel bsStyle={rowSpacePanel} header={rowSpaceTitle}>
           <div className={"matrixContainer"}>
             {rowSpace.map((vectors, i) =>
 
@@ -108,7 +117,7 @@ const MatrixDisplay = ({ matrixU, matrixR, hasData, colSpace, rowSpace, nullspac
             )}
           </div>
         </Panel>
-        <Panel header={nullspaceTitle}>
+        <Panel bsStyle={nullspacePanel} header={nullspaceTitle}>
           <div className={"matrixContainer"}>
             {nullspace.map((vectors, i) =>
 
@@ -127,7 +136,7 @@ const MatrixDisplay = ({ matrixU, matrixR, hasData, colSpace, rowSpace, nullspac
             )}
           </div>
         </Panel>
-        <Panel header={leftNullspaceTitle}>
+        <Panel bsStyle={leftNullspacePanel} header={leftNullspaceTitle}>
           <div className={"matrixContainer"}>
             {leftNullspace.map((vectors, i) =>
 

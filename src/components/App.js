@@ -5,16 +5,13 @@ import RowCounter from '../containers/RowCounter';
 import ColCounter from '../containers/ColCounter';
 import CalculateUR from '../containers/CalculateUR';
 import DisplayMatrices from '../containers/DisplayMatrices'
+import Header from '../components/Header';
 import logo from '../logo.svg';
 import '../App.css';
 
 const App = () => (
   <div className="App">
-    <div className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h2>Welcome to Morpheus</h2>
-
-    </div>
+    <Header />
     <div className="container">
       <div>
 
