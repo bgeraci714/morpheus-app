@@ -9,19 +9,19 @@ const isSpy = expect.isSpy;
 import matrices from '../reducers/matrices';
 import rows from '../reducers/rows';
 import cols from '../reducers/cols';
-import hasData from '../reducers/isFetching';
+import hasData from '../reducers/hasData';
 import { setMatrixA, calcMatrixU, calcMatrixR, setEntry, addNewRow, removeRow, addNewCol, removeCol } from '../actions/matrices';
 import { incrementRows, decrementRows, incrementCols, decrementCols } from '../actions/rows_cols';
-import { hasData } from '../actions/fetching';
+import { fetchedData } from '../actions/fetching';
 
 exports.testFetchData = () => {
-  const stateBefore = true;
+  const stateBefore = false;
   const action = fetchedData();
 
   deepFreeze(stateBefore);
   deepFreeze(action);
 
-  const stateAfter = false;
+  const stateAfter = true;
 
   expect (
     hasData(stateBefore, action)

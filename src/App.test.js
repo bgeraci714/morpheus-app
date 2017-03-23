@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers/index';
+
 import { testSetMatrixA, testIncrementRow, testDecrementRow, testIncrementCol,
          testDecrementCol, testCalcMatrixU, testCalcMatrixR, testSetEntry,
          testAddNewRow, testRemoveRow, testAddNewCol, testRemoveCol, testFetchData } from './tests/redux_tests';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+  ReactDOM.render(<Provider store={store}>
+    <App />
+  </Provider>, div);
 });
 
 it('signals that data has been fetched from the user', () => {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { calcMatrixU, calcMatrixR } from '../actions/matrices';
-import { hasData } from '../actions/fetching';
+import { fetchedData } from '../actions/fetching';
 import CalcButton from '../components/CalcButton';
 
 const mapDispatchToProps = (dispatch) => {
@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch) => {
     onClick: () => {
       dispatch(calcMatrixU());
       dispatch(calcMatrixR());
-      dispatch(hasData());
+      dispatch(fetchedData());
     }
   }
 }
