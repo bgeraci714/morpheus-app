@@ -11,7 +11,7 @@ const Matrix = ({ matrixA, rows, cols, onEntryChange }) => (
       <div key={i}>
       <FormGroup>
         {rows.map((cols, j) =>
-          <Col key={`${i},${j}`} sm={1}>
+          <Col key={`${i},${j}`} xs={2} sm={1}>
             <Entry row={i} col={j} value={cols} onChange={onEntryChange} />
           </Col>
         )}
