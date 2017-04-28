@@ -1,6 +1,6 @@
 import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+
 
 const Header = () => (
   <div>

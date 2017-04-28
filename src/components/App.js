@@ -6,7 +6,6 @@ import ColCounter from '../containers/ColCounter';
 import CalculateUR from '../containers/CalculateUR';
 import DisplayMatrices from '../containers/DisplayMatrices'
 import Header from '../components/Header';
-import logo from '../logo.svg';
 import '../App.css';
 
 const App = () => (
@@ -14,7 +13,6 @@ const App = () => (
     <Header />
     <div className="container">
       <div>
-
         <RowCounter />
         <ColCounter />
         <MatrixA />
