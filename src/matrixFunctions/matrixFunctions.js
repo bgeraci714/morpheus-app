@@ -39,6 +39,7 @@ function getNullspace(matrixA) {
     if (pivotCols.indexOf(i) === -1)
       freeCols.push(i);
   }
+  
   let nullspace = [];
   // creates the special solutions for the nullspace
   for (let i = 0; i < freeCols.length; i++) {
@@ -112,7 +113,7 @@ function getColsOfPivots (matrixR) {
   let numCols = matrixR[0].length;
   for (let i = 0; i < numRows; i++) {
     for (let j = i; j < numCols; j++) {
-      if (matrixR[i][j] === 1) {
+      if (Math.round(matrixR[i][j]) === 1) {
         pivotCols.push(j);
         break;
       }
