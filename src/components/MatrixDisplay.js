@@ -33,8 +33,8 @@ const colSpaceTitle = (
 
 const rowSpaceTitle = (
   <div> Row Space Basis
-  <ModalLink title="About the Row Space" text="The row space of a matrix is the subspace spanned by the rows. The row space of A is written as C(A transpose). It can be equivalently understood as the column space of the transpose of A.
-  $Dimension for the row space = rank (r)." />
+  <ModalLink title="About the Row Space" text="The row space of a matrix is the subspace spanned by the rows. The row space of A is written as C(A^T), A^T being A transpose. As indicated by the notation, the row space can be equivalently understood as the column space of the transpose of A.
+  $Dimension for C(A^T) = rank r." />
 
   </div>
 );
@@ -47,8 +47,8 @@ const nullspaceTitle = (
 
 const leftNullspaceTitle = (
   <div> Left Nullspace Basis
-  <ModalLink title="About the Left Nullspace" text="This is the nullspace as determined by the rows (not the columns as in the other nullspace). This is equivalently depicted as N(A transpose).
-  $Dimension for the left nullspace = rows - rank = m - r. " />
+  <ModalLink title="About the Left Nullspace" text="This is the nullspace as determined by the rows (not the columns as in the other nullspace). This is equivalently depicted as N(A^T).
+  $Dimension for N(A^T) = rows - rank = m - r. " />
   </div>
 );
 
