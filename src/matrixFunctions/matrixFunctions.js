@@ -39,7 +39,7 @@ function getNullspace(matrixA) {
     if (pivotCols.indexOf(i) === -1)
       freeCols.push(i);
   }
-  
+
   let nullspace = [];
   // creates the special solutions for the nullspace
   for (let i = 0; i < freeCols.length; i++) {
@@ -61,6 +61,16 @@ function getNullspace(matrixA) {
     }
     nullspace.push(curSoln);
   }
+
+  //console.log(nullspace);
+  if (nullspace.length === 0){
+    let arr = [];
+    for (let i = 0; i < matrixR.length; i++)
+      arr.push(0);
+
+    return [arr];
+  }
+
 
   return nullspace;
 }
